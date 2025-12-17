@@ -146,8 +146,10 @@
             </a>
             
             <div class="mt-16">
-                <a href="#audit-content" class="text-[10px] uppercase tracking-[0.3em] text-[#C5A059] hover:text-white transition-colors border-b border-transparent hover:border-[#C5A059] pb-1">
-                    Scroll to Analytics
+                <a href="#audit-content" class="inline-flex flex-col items-center group text-[#C5A059] hover:text-white transition-colors">
+                    <span class="text-[10px] uppercase tracking-[0.3em] border-b border-transparent group-hover:border-[#C5A059] pb-1">Scroll to Analytics</span>
+                    <br><hr>
+                    <span class="mt-4 text-5xl animate-bounce">↓</span>
                 </a>
             </div>
         </div>
@@ -437,7 +439,7 @@
             }
         });
 
-        // --- 3. MOBILE (Polar Area) ---
+        // --- 3. MOBILE (Polar Area - UPDATED COLORS) ---
         new Chart(document.getElementById('mobileChart'), {
             type: 'polarArea',
             data: {
