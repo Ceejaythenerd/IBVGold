@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBV Gold: The Ethereal Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Proza+Libre:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- PALETTE: THE ETHEREAL VAULT --- */
+        :root {
+            --bg-midnight: #020202; /* True Black */
+            --bg-velvet: #0a0a0a;
+            --text-platinum: #E5E4E2;
+            --text-dim: #999999;
+            
+            /* Champagne Gold Gradient */
+            --gold-champagne: #F3E5AB;
+            --gold-antique: #C5A059;
+            --gold-solid: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #F3E5AB 0%, #C5A059 100%);
+            
+            /* Accents */
+            --accent-ruby: #D62828;
+            --accent-emerald: #046307;
+        }
+
+        body {
+            font-family: 'Proza Libre', sans-serif;
+            background-color: var(--bg-midnight);
+            color: var(--text-platinum);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* --- UI COMPONENTS --- */
+
+        /* The "Black Glass" Card */
+        .glass-card {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(197, 160, 89, 0.3); 
+            padding: 2.5rem;
+            position: relative;
+            border-radius: 4px;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(197, 160, 89, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Vertical Gold Line Accent */
+        .accent-line {
+            width: 1px;
+            height: 60px;
+            background: var(--gold-gradient);
+            margin: 0 auto 2rem auto;
+            display: block;
+        }
+
+        /* Typography Utilities */
+        .text-champagne {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Chart Containers - Fixed Dimensions for Stability */
+        .chart-container-lg {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+        
+        .chart-container-md {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Buttons / Links */
+        .btn-ethereal {
+            display: inline-block;
+            background: rgba(197, 160, 89, 0.05);
+            border: 1px solid rgba(197, 160, 89, 0.5);
+            color: var(--gold-champagne);
+            padding: 1rem 3rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-ethereal:hover {
+            border-color: var(--gold-champagne);
+            color: #050505;
+            background: var(--gold-champagne);
+        }
+
+        /* Grid Background Effect */
+        .bg-grid-subtle {
+            background-size: 80px 80px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-grid-subtle selection:bg-amber-900 selection:text-white">
+
+    <!-- HERO SECTION -->
+    <header class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
+        <div class="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-black to-transparent pointer-events-none"></div>
+        
+        <div class="z-10">
+            <span class="block text-[10px] md:text-xs uppercase tracking-[0.4em] text-neutral-500 mb-8">Technical Audit Report // Confidential</span>
+            <div class="w-px h-20 bg-gradient-to-b from-transparent via-[#C5A059] to-transparent mx-auto mb-8"></div>
+            <h1 class="text-6xl md:text-9xl serif font-light text-white mb-6 tracking-tight">
+                IBV <span class="text-champagne italic">Gold</span>
+            </h1>
+            <p class="max-w-xl mx-auto text-lg md:text-xl text-neutral-400 font-light serif italic leading-relaxed mb-12">
+                "Digital sovereignty requires the same meticulous craftsmanship as the assets you protect."
+            </p>
+            
+            <!-- DOWNLOAD LINK -->
+            <a href="IBV_Gold_Technical_SEO_Trust_Audit.pdf" download class="btn-ethereal group">
+                Download Audit PDF
+                <span class="block text-[10px] opacity-70 font-sans normal-case tracking-normal mt-1 group-hover:text-black">PDF Document • 4.2 MB</span>
+            </a>
+            
+            <div class="mt-16">
+                <a href="#audit-content" class="text-[10px] uppercase tracking-[0.3em] text-[#C5A059] hover:text-white transition-colors border-b border-transparent hover:border-[#C5A059] pb-1">
+                    Scroll to Analytics
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <main id="audit-content" class="max-w-[1400px] mx-auto px-6 py-20 space-y-32">
+
+        <!-- SECTION 1: THE TRUST INDEX -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div class="lg:col-span-5 text-left">
+                <span class="text-champagne serif text-2xl italic block mb-4">01. The Trust Index</span>
+                <h2 class="text-4xl md:text-5xl serif text-white mb-6 leading-tight">State of the <br>Digital Vault.</h2>
+                <p class="text-neutral-400 font-light leading-7 mb-8 text-sm text-justify">
+                    A digital ecosystem, much like a physical vault, relies on the perception of impenetrability. Our comprehensive analysis reveals a 'Trust Score' of <strong class="text-[#C5A059]">72/100</strong>. While structurally sound, the façade shows microscopic hairline fractures in performance and mobile responsiveness that, to the discerning eye, suggest vulnerability.
+                </p>
+                <div class="grid grid-cols-2 gap-8 border-t border-neutral-900 pt-8">
+                    <div>
+                        <span class="block text-4xl serif text-white">72</span>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500">Current Score</span>
+                    </div>
+                    <div>
+                        <span class="block text-4xl serif text-[#C5A059]">98</span>
+                        <span class="text-[10px] uppercase tracking-widest text-neutral-500">Target Score</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-7 relative">
+                <div class="chart-container-lg">
+                    <canvas id="healthChart"></canvas>
+                </div>
+                <!-- Central Text Overlay -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="text-center">
+                        <span class="serif text-8xl text-white block tracking-tighter drop-shadow-2xl">72</span>
+                        <span class="serif text-2xl italic text-[#C5A059]">Fair</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: VELOCITY & LATENCY (Fixed Visuals) -->
+        <section>
+            <div class="text-center mb-16">
+                <span class="accent-line"></span>
+                <h2 class="text-4xl serif text-white mb-2">Velocity is Confidence</h2>
+                <p class="text-neutral-500 text-xs tracking-widest uppercase">Latency Benchmarks</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Graph Card -->
+                <div class="glass-card">
+                    <div class="flex justify-between items-end mb-6">
+                        <h3 class="serif text-2xl text-white">Latency Analysis</h3>
+                        <span class="text-neutral-400 text-[10px] uppercase tracking-widest">Load Time (Seconds)</span>
+                    </div>
+                    <!-- Explicit Container for Latency Chart -->
+                    <div class="chart-container-md bg-[#080808] border border-neutral-900 rounded p-4">
+                        <canvas id="speedChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-neutral-400 text-sm font-light italic text-center">
+                        "Your digital concierge is currently making the client wait <span class="text-[#D62828] font-normal">2.7s longer</span> than the target."
+                    </p>
+                </div>
+
+                <!-- Metrics Card -->
+                <div class="glass-card flex flex-col justify-center">
+                    <h3 class="serif text-2xl text-white mb-6">The Cost of Delay</h3>
+                    <div class="space-y-8">
+                        <div class="flex items-center justify-between border-b border-neutral-800 pb-4">
+                            <span class="text-neutral-300 font-light">First Contentful Paint</span>
+                            <span class="serif text-xl text-[#C5A059]">1.8s</span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-neutral-800 pb-4">
+                            <span class="text-neutral-300 font-light">Time to Interactive</span>
+                            <span class="serif text-xl text-[#D62828]">4.2s</span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-neutral-800 pb-4">
+                            <span class="text-neutral-300 font-light">Speed Index</span>
+                            <span class="serif text-xl text-neutral-400">3.5s</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto pt-6">
+                         <div class="flex items-start space-x-4">
+                            <span class="text-[#C5A059] text-xl">✦</span>
+                            <p class="text-neutral-300 text-xs italic leading-5">
+                                Recommendation: Implement aggressive image compression on vault gallery assets and defer non-essential scripts.
+                            </p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: MOBILE & INTEGRITY -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Mobile Analysis -->
+            <div class="glass-card lg:col-span-1">
+                <h3 class="serif text-2xl text-white mb-2">Device Sovereignty</h3>
+                <p class="text-neutral-400 text-xs mb-8 font-light">
+                    Traffic distribution by device type.
+                </p>
+                <div class="chart-container-md">
+                    <canvas id="mobileChart"></canvas>
+                </div>
+                <div class="text-center mt-6">
+                    <p class="serif text-xl text-white">65% <span class="text-neutral-400 italic text-sm">Mobile Usage</span></p>
+                    <p class="text-[#D62828] text-xs mt-1 uppercase tracking-widest">Critical Alert: High Bounce Rate</p>
+                </div>
+            </div>
+
+            <!-- Integrity / Broken Links -->
+            <div class="glass-card lg:col-span-2">
+                <div class="flex flex-col md:flex-row justify-between md:items-end mb-8">
+                    <div>
+                        <h3 class="serif text-2xl text-white mb-2">Structural Integrity</h3>
+                        <p class="text-neutral-400 text-xs font-light max-w-md">
+                            Visualizing the "health" of internal pathways. Drops indicate broken links (404s).
+                        </p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <span class="serif text-5xl text-[#D62828]">24</span>
+                        <span class="block text-[10px] uppercase text-neutral-500 text-right">Fractures Detected</span>
+                    </div>
+                </div>
+
+                <div class="chart-container-md">
+                    <canvas id="integrityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE SAFETY SIGNATURE -->
+        <section class="max-w-5xl mx-auto text-center">
+            <span class="accent-line"></span>
+            <h2 class="text-4xl serif text-white mb-12">The Safety Signature</h2>
+            
+            <div class="relative glass-card">
+                <!-- Background Glow -->
+                <div class="absolute inset-0 bg-[#C5A059] blur-[150px] opacity-10 rounded-full pointer-events-none"></div>
+                
+                <div class="chart-container-lg">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="text-center">
+                    <h4 class="serif text-xl text-white mb-2">Encryption</h4>
+                    <p class="text-xs text-neutral-500 uppercase tracking-widest">Grade A (256-bit)</p>
+                </div>
+                <div class="text-center border-l border-r border-neutral-900">
+                    <h4 class="serif text-xl text-white mb-2">Social Proof</h4>
+                    <p class="text-xs text-[#D62828] uppercase tracking-widest">Low Visibility</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="serif text-xl text-white mb-2">Data Privacy</h4>
+                    <p class="text-xs text-[#C5A059] uppercase tracking-widest">Update Required</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-neutral-900 mt-20 py-24 text-center">
+            <h3 class="serif text-4xl text-white mb-8">Elevate Your Standard</h3>
+            <p class="text-neutral-500 text-sm mb-12 italic max-w-2xl mx-auto">
+                "To sell safety, one must embody it. Let us reinforce the vault."
+            </p>
+            <a href="IBV_Gold_Technical_SEO_Trust_Audit.pdf" download class="btn-ethereal group">
+                Download Audit PDF
+                <span class="block text-[10px] opacity-70 font-sans normal-case tracking-normal mt-1 group-hover:text-black">PDF Document • 4.2 MB</span>
+            </a>
+            <p class="mt-20 text-[10px] text-neutral-800 uppercase tracking-[0.2em]">
+                IBV Gold &copy; 2024. All Rights Reserved.
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- CHART CONFIGURATION -->
+    <script>
+        // --- LUXURY CONFIG DEFAULTS (High Contrast) ---
+        Chart.defaults.font.family = "'Proza Libre', sans-serif";
+        Chart.defaults.font.weight = '400';
+        Chart.defaults.color = '#cccccc'; 
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.08)'; 
+        Chart.defaults.scale.grid.color = 'rgba(255,255,255,0.08)'; 
+
+        // --- UTILITY: Wrap Labels ---
+        function wrapLabels(labels) {
+            const MAX_LENGTH = 15;
+            return labels.map(label => {
+                if (label.length <= MAX_LENGTH) return label;
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+                for (let i = 1; i < words.length; i++) {
+                    if (currentLine.length + 1 + words[i].length <= MAX_LENGTH) {
+                        currentLine += ' ' + words[i];
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            });
+        }
+
+        // --- UTILITY: Luxury Tooltips ---
+        const luxuryTooltip = {
+            backgroundColor: 'rgba(5, 5, 5, 0.95)',
+            titleFont: { family: 'Cormorant Garamond', size: 16, style: 'italic' },
+            bodyFont: { family: 'Proza Libre', size: 12 },
+            borderColor: '#C5A059',
+            borderWidth: 1,
+            padding: 16,
+            displayColors: true,
+            boxPadding: 6,
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) return label.join(' ');
+                    return label;
+                }
+            }
+        };
+
+        // --- 1. HEALTH (Doughnut) ---
+        new Chart(document.getElementById('healthChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Trust Score', 'Deficiency'],
+                datasets: [{
+                    data: [72, 28],
+                    backgroundColor: ['#D4AF37', '#1a1a1a'], 
+                    borderWidth: 0,
+                    hoverOffset: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '96%',
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
+
+        // --- 2. VELOCITY (Horizontal Bar) ---
+        new Chart(document.getElementById('speedChart'), {
+            type: 'bar',
+            data: {
+                labels: ['IBV Gold', 'Luxury Avg', 'Target'],
+                datasets: [{
+                    label: 'Seconds',
+                    data: [4.2, 2.9, 1.5],
+                    backgroundColor: [
+                        '#D62828', // Ruby Red
+                        '#444444', // Dark Grey
+                        '#D4AF37'  // Solid Gold
+                    ],
+                    barThickness: 35,
+                    borderWidth: 0,
+                    borderRadius: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: luxuryTooltip },
+                scales: {
+                    x: { 
+                        grid: { display: true, color: 'rgba(255,255,255,0.05)' }, 
+                        ticks: { color: '#888', font: {size: 11} } 
+                    },
+                    y: { 
+                        grid: { display: false }, 
+                        ticks: { font: { family: 'Cormorant Garamond', size: 16 }, color: '#fff' } 
+                    }
+                }
+            }
+        });
+
+        // --- 3. MOBILE (Polar Area) ---
+        new Chart(document.getElementById('mobileChart'), {
+            type: 'polarArea',
+            data: {
+                labels: ['Desktop', 'Mobile', 'Tablet'],
+                datasets: [{
+                    data: [30, 65, 5],
+                    backgroundColor: [
+                        'rgba(160, 160, 160, 0.2)', // Platinum (Desktop)
+                        'rgba(212, 175, 55, 0.9)',  // Rich Gold (Mobile - Dominant)
+                        'rgba(100, 100, 100, 0.2)'  // Gunmetal (Tablet)
+                    ],
+                    borderWidth: 1,
+                    borderColor: '#050505'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { 
+                    r: { 
+                        ticks: { display: false }, 
+                        grid: { color: 'rgba(255,255,255,0.1)' },
+                        backdropColor: 'transparent'
+                    } 
+                },
+                plugins: { 
+                    legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 20, color: '#aaa' } },
+                    tooltip: luxuryTooltip
+                }
+            }
+        });
+
+        // --- 4. INTEGRITY (Area Chart) ---
+        const integrityCtx = document.getElementById('integrityChart').getContext('2d');
+        const lineGradient = integrityCtx.createLinearGradient(0, 0, 0, 300);
+        lineGradient.addColorStop(0, 'rgba(197, 160, 89, 0.4)');
+        lineGradient.addColorStop(1, 'rgba(197, 160, 89, 0)');
+
+        new Chart(integrityCtx, {
+            type: 'line',
+            data: {
+                labels: ['Home', 'About', 'Vaults', 'Invest', 'Pricing', 'Contact', 'Legal'],
+                datasets: [{
+                    label: 'Path Health',
+                    data: [100, 95, 92, 50, 45, 80, 90],
+                    borderColor: '#D4AF37',
+                    borderWidth: 2,
+                    backgroundColor: lineGradient,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#050505',
+                    pointBorderColor: '#D4AF37',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: luxuryTooltip },
+                scales: {
+                    y: { display: false, min: 0 },
+                    x: { 
+                        grid: { display: false }, 
+                        ticks: { font: { family: 'Proza Libre', size: 11 }, color: '#aaa' } 
+                    }
+                }
+            }
+        });
+
+        // --- 5. RADAR (Safety Signature) ---
+        const radarLabels = wrapLabels(['HTTPS', 'Page Speed', 'Mobile UX', 'Privacy Policy', 'Social Proof', 'Content Depth']);
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: {
+                labels: radarLabels,
+                datasets: [
+                    {
+                        label: 'IBV Gold',
+                        data: [90, 40, 55, 60, 30, 70],
+                        borderColor: '#D4AF37',
+                        backgroundColor: 'rgba(197, 160, 89, 0.3)',
+                        pointBackgroundColor: '#D4AF37',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Gold Standard',
+                        data: [100, 90, 95, 100, 90, 95],
+                        borderColor: '#555',
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        borderWidth: 1,
+                        backgroundColor: 'transparent'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255,255,255,0.1)' },
+                        grid: { color: 'rgba(255,255,255,0.1)' },
+                        pointLabels: { 
+                            font: { family: 'Cormorant Garamond', size: 14, style: 'italic' },
+                            color: '#ccc'
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' }
+                    }
+                },
+                plugins: { legend: { display: false }, tooltip: luxuryTooltip }
+            }
+        });
+    </script>
+</body>
+</html>
